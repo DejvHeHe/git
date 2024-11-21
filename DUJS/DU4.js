@@ -1,8 +1,18 @@
 //DU4
 function main(dtoIn)
 {
-    const generateEmployeeData = require('./DU3.js');    
-    const listOfemployees = generateEmployeeData(dtoIn); // Zajistí, že dtoIn je předáno správně    
+    const generateEmployeeData = require('./DU3.js');   
+     
+    const listOfemployees = generateEmployeeData(dtoIn); // Zajistí, že dtoIn je předáno správně
+    if(dtoIn.count<=0)
+    {
+        return "Chyba-počet zaměstnancu neni spravný";
+    }
+    if(dtoIn.age.min>=dtoIn.age.max)
+    {
+        return "age.min je větší nebo rovno age.max"
+    }
+    
     const statistics = getEmployeeStatistics(listOfemployees);
 
     // Vrácení výstupních dat
@@ -123,7 +133,7 @@ const dtoIn = {
         min: 20,
         max: 40
     },
-    count: 10// Počet zaměstnanců, které chceme vygenerovat
+    count: 5// Počet zaměstnanců, které chceme vygenerovat
 };
 const dtoOut=main(dtoIn);
 console.log(JSON.stringify(dtoOut, null, 2));
