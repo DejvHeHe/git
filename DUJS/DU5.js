@@ -7,14 +7,12 @@ let pracovnici = [
 
 let cetnost={};
 pracovnici.forEach(element => {
-    if(element.name===undefined)
-    {
-        cetnost.count=1;
+    if (cetnost[element.name] === undefined) {
+        cetnost[element.name] = 1;
+    } else {
+        cetnost[element.name]++;
     }
-    else
-    {
-        cetnost.count++;
-    }
+    
 
 });
 console.log(cetnost);
