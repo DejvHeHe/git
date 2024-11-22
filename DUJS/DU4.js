@@ -90,24 +90,13 @@ function getEmployeeStatistics(listOfemployees) {
 
     // Výpočet mediánu workloadu
     workloadListsorted.sort((a, b) => a - b); // Seřadit úvazky
-    let mid = Math.floor(workloadListsorted.length / 2);
-    if (workloadListsorted.length % 2 === 0) {
-        medianWorkload = (workloadListsorted[mid - 1] + workloadListsorted[mid]) / 2;
-    } else {
-        medianWorkload = workloadListsorted[mid];
-    }
+    medianWorkload=getMedian(workloadListsorted);
+    
 
     // Výpočet medianu věku
     ageList.sort((a,b) => a - b);
-    mid= Math.floor(ageList.length/2);
-    if(ageList.length%2==0)
-    {
-        medianAge = (ageList[mid - 1] + ageList[mid]) / 2;
-    }
-    else{
-        medianAge=ageList[mid];
-    }
-      
+    medianAge=getMedian(ageList);
+    
     // Výpočet průměrného úvazku zaměstnankyň
     let averageWomenWorkload = countOffemaleEmployee > 0 ? sumaWorkloadFemale / countOffemaleEmployee : 0;
     return {
@@ -127,7 +116,20 @@ function getEmployeeStatistics(listOfemployees) {
     };
     
 }
+function getMedian(range)
+{
+    let median=0
+    let mid= Math.floor(range.length/2);
+    if(range.length%2==0)
+    {
+        median = (range[mid - 1] + range[mid]) / 2;
+    }
+    else{
+       median=range[mid];
+    }
+    return median;
 
+}
 const dtoIn = {
     age: {
         min: 20,

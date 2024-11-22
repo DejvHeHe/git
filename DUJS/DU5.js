@@ -11,8 +11,7 @@ pracovnici.forEach(element => {
         cetnost[element.name] = 1;
     } else {
         cetnost[element.name]++;
-    }
-    
+    }   
 
 });
 console.log(cetnost);
