@@ -105,7 +105,7 @@ function getEmployeeStatistics(listOfemployees) {
         workload20:workload20,
         workload30:workload30,
         workload40:workload40,
-        averageAge: averageAge,
+        averageAge: averageAge.toFixed(1),
         maxAge: Math.max(...ageList),
         minAge: Math.min(...ageList),
         medianAge: medianAge,
@@ -135,7 +135,7 @@ const dtoIn = {
         min: 20,
         max: 40
     },
-    count: 5// Počet zaměstnanců, které chceme vygenerovat
+    count: 3// Počet zaměstnanců, které chceme vygenerovat
 };
 const dtoOut=main(dtoIn);
 console.log(JSON.stringify(dtoOut, null, 2));
