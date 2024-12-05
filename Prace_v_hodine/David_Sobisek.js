@@ -8,16 +8,16 @@ const data = JSON.parse(
   })
 );
 let count=0;
-postsList=data.posts;
+let postsList=data.posts;
 
-for(i=0;i<postsList.length;i++)
+for(let i=0;i<postsList.length;i++)
 {
    let post=postsList[i];
-   count=post.comments.length
-   console.log(post.post_id+":"+count)
+   count=post.comments.length;
+   console.log(post.post_id+":"+count);
    if(count>3)
    {
-    console.log(post)
+    console.log(post);
    }
    
 
