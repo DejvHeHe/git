@@ -12,7 +12,14 @@ function main(dtoIn)
         }   
 
     });
-    return cetnost;
+    console.log(cetnost);
+    let maxEntry = Object.entries(cetnost).reduce((max, entry) => {
+    return entry[1] > max[1] ? entry : max;
+      }, ["", -Infinity]);
+      
+      return maxEntry; 
+     
+      
 }
 
 const dtoIn = {
@@ -23,4 +30,4 @@ const dtoIn = {
     count: 50// Počet zaměstnanců, které chceme vygenerovat
 };
 dtoOut=main(dtoIn)
-console.log(JSON.stringify(dtoOut, null, 2))
+console.log(dtoOut)
