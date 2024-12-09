@@ -80,24 +80,20 @@ function getEmployeeChartContent(listOfEmployees)
     console.log(JSON.stringify(allFrequency, null, 2));
     // Návrat hodnot
     return {
-        all:getMax(allFrequency),
-        male:getMax(maleFrequency),
-        female:getMax(femaleFrequency),
-        maleFullTime:getMax(maleFullTimeFrequency),
-        femalePartTime:getMax(femalePartTimeFrequency)
+        all:sort(allFrequency),
+        male:sort(maleFrequency),
+        female:sort(femaleFrequency),
+        maleFullTime:sort(maleFullTimeFrequency),
+        femalePartTime:sort(femalePartTimeFrequency)
 
 
     };
 
 }
-function getMax(range)
+function sort(range)
 {   
-    const maxCount = Math.max(...Object.values(range));
-    let maxNames = Object.entries(range)
-        .filter(([name, count]) => count === maxCount)
-        .map(([name, count]) => ({ name, count }));
-
-    return maxNames;
+    const objectSorted=Object.entries(range).sort((a, b) => b[1] - a[1]);
+    return objectSorted;
 
 }
 
@@ -106,7 +102,7 @@ const dtoIn = {
         min: 20,
         max: 40
     },
-    count: 50 // Počet zaměstnanců, které chceme vygenerovat
+    count: 15// Počet zaměstnanců, které chceme vygenerovat
 };
 
 let dtoOut = main(dtoIn);
