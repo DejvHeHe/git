@@ -1,43 +1,71 @@
 function main(dtoIn) {
     const generateEmployeeData = require('./DU3.js');
-    const pracovnici = generateEmployeeData(dtoIn);
+    // Kontrola validnosti vstupních dat
+    if (dtoIn.count <= 0) {
+        // Pokud počet zaměstnanců není kladný
+        return "Chyba-počet zaměstnancu neni spravný";
+    }
+    if (dtoIn.age.min >= dtoIn.age.max) {
+        // Pokud minimální věk je větší nebo roven maximálnímu
+        return "Chyba-minimální věk je větší nebo roven maximálnímu";
+    }
 
-    let cetnost = {}; // Četnost všech jmen
-    let cetnostMale = {}; // Četnost pouze mužských jmen
-    let cetnostFemale={};
-    let cetnostMaleWorkload40={};
+    // Generování seznamu zaměstnanců na základě dtoIn
+    const listOfEmployees = generateEmployeeData(dtoIn);
+
+    // Výpočet statistik zaměstnanců
+    const mostUsedNames = getEmployeeChartContent(listOfEmployees);
+
+    
+}
+function getEmployeeChartContent(listOfEmployees)
+{
+    let all = {}; // Četnost všech jmen
+    let male = {}; // Četnost pouze mužských jmen
+    let female={};
+    let maleFullTime={};
+    let femalePartTime={};
 
     // Spočítání četnosti jmen
     pracovnici.forEach(element => {
         // Četnost všech jmen
-        if (cetnost[element.name] === undefined) {
-            cetnost[element.name] = 1;
+        if (all[element.name] === undefined) {
+            all[element.name] = 1;
         } else {
-            cetnost[element.name]++;
+            all[element.name]++;
         }
 
         // Četnost mužských jmen
         if (element.gender === 'male') { // Ověření pohlaví
-            if (cetnostMale[element.name] === undefined) {
-                cetnostMale[element.name] = 1;
+            if (male[element.name] === undefined) {
+                male[element.name] = 1;
             } else {
-                cetnostMale[element.name]++;
+                male[element.name]++;
             }
             if(element.workload===40)
             {
-                if (cetnostMaleWorkload40[element.name] === undefined) {
-                    cetnostMaleWorkload40[element.name] = 1;
+                if (maleFullTime[element.name] === undefined) {
+                    maleFullTime[element.name] = 1;
                 } else {
-                    cetnostMaleWorkload40[element.name]++;
+                    maleFullTime[element.name]++;
                 }
 
             }
         }
         if (element.gender === 'female') { // Ověření pohlaví
-            if (cetnostFemale[element.name] === undefined) {
-                cetnostFemale[element.name] = 1;
+            if (female[element.name] === undefined) {
+                female[element.name] = 1;
             } else {
-                cetnostFemale[element.name]++;
+                female[element.name]++;
+            }
+            if(element.workload!==40)
+            {
+                if (femalePartTime[element.name] === undefined) {
+                    femalePartTime[element.name] = 1;
+                } else {
+                    femalePartTime[element.name]++;
+                }
+
             }
         }
     });
@@ -45,39 +73,41 @@ function main(dtoIn) {
    
 
     // Získání maximální četnosti
-    const maxCount = Math.max(...Object.values(cetnost));
-    const maxCountMale = Math.max(...Object.values(cetnostMale));
-    const maxCountFemale = Math.max(...Object.values(cetnostFemale));
-    const maxCountMaleWorkload40=Math.max(...Object.values(cetnostMaleWorkload40));
+    const maxCount = Math.max(...Object.values(all));
+    const maxCountMale = Math.max(...Object.values(male));
+    const maxCountFemale = Math.max(...Object.values(female));
+    const maxCountmaleFullTime=Math.max(...Object.values(maleFullTime));
+    
 
     // Vyhledání všech jmen s maximální četností a jejich četnosti
-    let maxNames = Object.entries(cetnost)
+    let maxNames = Object.entries(all)
         .filter(([name, count]) => count === maxCount)
         .map(([name, count]) => ({ name, count }));
 
-    let maxNamesMale = Object.entries(cetnostMale)
+    let maxNamesMale = Object.entries(male)
         .filter(([name, count]) => count === maxCountMale)
         .map(([name, count]) => ({ name, count }));
 
-    let maxNamesFemale = Object.entries(cetnostFemale)
+    let maxNamesFemale = Object.entries(female)
         .filter(([name, count]) => count === maxCountFemale)
         .map(([name, count]) => ({ name, count }));
 
-    let maxNamesMaleWorkload40 = Object.entries(cetnostMaleWorkload40)
-        .filter(([name, count]) => count === maxCountMaleWorkload40)
+    let maxNamesmaleFullTime = Object.entries(maleFullTime)
+        .filter(([name, count]) => count === maxCountmaleFullTime)
         .map(([name, count]) => ({ name, count }));
     // Návrat hodnot
     return {
-        allNamesFrequency: cetnost,
-        maleNamesFrequency: cetnostMale,
-        femaleNamesFrequency: cetnostFemale,
-        maleNamesFrequencyWorkload40:cetnostMaleWorkload40,
+        allNamesFrequency: all,
+        maleNamesFrequency: male,
+        femaleNamesFrequency: female,
+        maleNamesFrequencyWorkload40:maleFullTime,
         mostFrequentNames: maxNames,
         mostFrequentMaleNames: maxNamesMale,        
         mostFrequentFemaleNames: maxNamesFemale,
-        mostFrequentMaleNamesWorkload40:maxNamesMaleWorkload40,
+        mostFrequentMaleNamesWorkload40:maxNamesmaleFullTime,
 
     };
+
 }
 
 const dtoIn = {
