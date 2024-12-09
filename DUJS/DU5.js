@@ -14,10 +14,10 @@ function main(dtoIn) {
     const listOfEmployees = generateEmployeeData(dtoIn);
 
     // Výpočet statistik zaměstnanců
-    const mostUsedNames = getEmployeeChartContent(listOfEmployees);
+    const names = getEmployeeChartContent(listOfEmployees);
     
     const dtoOut = {
-        mostUsedNames: mostUsedNames // Vypočítané statistiky
+        names: names // Vypočítané statistiky
     };
     return dtoOut;
 
