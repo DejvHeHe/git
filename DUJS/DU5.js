@@ -90,12 +90,11 @@ function getEmployeeChartContent(listOfEmployees)
     };
 
 }
-function sort(range)
-{   
-    const objectSorted=Object.entries(range).sort((a, b) => b[1] - a[1]);
-    return objectSorted;
-
+function sort(range) {   
+    const objectSorted = Object.entries(range).sort((a, b) => b[1] - a[1]);
+    return Object.fromEntries(objectSorted); // Vrátí objekt místo pole
 }
+
 
 const dtoIn = {
     age: {
