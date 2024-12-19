@@ -57,7 +57,8 @@ function getEmployeeChartContent(listOfEmployees)
 
             }
         }
-        if (element.gender === 'female') { // Ověření pohlaví
+        else
+        { 
             if (femaleFrequency[element.name] === undefined) {
                 femaleFrequency[element.name] = 1;
             } else {
