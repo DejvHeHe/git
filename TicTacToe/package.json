@@ -1,0 +1,15 @@
+{
+  "name": "tictactoe",
+  "version": "1.0.0",
+  "productName": "TicTacToe",
+  "description": "Game",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "author": "David Sobisek",
+  "license": "MIT",
+  "devDependencies": {
+    "electron": "^33.2.1"
+  }
+}
