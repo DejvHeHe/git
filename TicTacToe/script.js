@@ -8,6 +8,6 @@ const winningCombinations = [
     ['a1', 'b2', 'c3'],
     ['a3', 'b2', 'c1']
 ];
-const player1={};
-const player2={};
+const playerA={};
+const playerB={};
 
