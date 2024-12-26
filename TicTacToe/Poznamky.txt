@@ -1,6 +1,4 @@
-1.Udělat upravu policek
-2.Vypisovat kdo aktulne hraje a prohazovat hrace po tahu
-3.Zakazat znovu upravu po prvním kliknuti
+
 4.Vybrat kdo vyhral
 5.Pripsat body
 
