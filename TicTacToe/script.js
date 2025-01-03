@@ -69,16 +69,27 @@ function newGame()
     cells.forEach(cell => {
         cell.innerHTML = ""; // Smaže obsah buňky
     });
+    checkTurn();
   
 
 }
 function resetScore()
 {
+  turn=1;
   newGame();
   scorePlayerA=0;
   scorePlayerB=0;
   playerAPoints.innerHTML=scorePlayerA;
   playerBPoints.innerHTML=scorePlayerA;
-  turn=1;
   
+  
+}
+function checkTurn()
+{
+  if (turn % 2 !== 0) {
+    h1.innerHTML = "Hraje hráč A";
+  }
+  else{
+    h1.innerHTML="Hraje hráč B";
+  }
 }
