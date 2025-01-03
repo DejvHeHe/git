@@ -25,14 +25,14 @@
     <div class="header">
         
         <h2>SCORE:</h2>
-        <h3 id="playerAPoints"></h3>  
+        <h3 id="playerAPoints">0</h3>  
         <h3>:</h3>      
-        <h3 id="playerBPoints"></h3>
+        <h3 id="playerBPoints">0</h3>
     </div>
     
     <div id="buttons">
-        <input class="styled" type="button" value="NOVÁ HRA" />
-        <input class="styled" type="button" value="RESTARTOVAT" />
+        <input class="styled" type="button" value="NOVÁ HRA" onclick="newGame(this)"/>
+        <input class="styled" type="button" value="RESTARTOVAT" onclick="resetScore(this)"/>
 
     </div>
     

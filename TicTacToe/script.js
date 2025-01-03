@@ -58,3 +58,27 @@ function checkWinner(player) {
     combination.every(cell => player.includes(cell))
   );
 }
+function newGame()
+{
+  playerA = [];
+  playerB = [];
+  
+  const cells = document.querySelectorAll(".cell");
+    
+    // Pro každou buňku nastav prázdný obsah
+    cells.forEach(cell => {
+        cell.innerHTML = ""; // Smaže obsah buňky
+    });
+  
+
+}
+function resetScore()
+{
+  newGame();
+  scorePlayerA=0;
+  scorePlayerB=0;
+  playerAPoints.innerHTML=scorePlayerA;
+  playerBPoints.innerHTML=scorePlayerA;
+  turn=1;
+  
+}
