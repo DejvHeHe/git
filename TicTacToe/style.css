@@ -1,0 +1,73 @@
+body {
+    font-family: Arial, sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    margin: 0;
+    background-color: #6AE2D4;
+
+}
+
+#h1{
+    font-family: Arial, sans-serif;
+    color: #ffffff;
+    -webkit-text-stroke: 2px black;
+}
+.header {
+    display: flex; /* Flexbox zajistí, že všechny prvky budou v řadě */
+    align-items: center; /* Zarovná je vertikálně na střed */
+    justify-content: flex-start; /* Pokud chceš, aby byly zarovnané na levý okraj */
+    gap: 20px; /* Mezera mezi každými dvěma h3 */
+    font-family: Arial, sans-serif;
+    color: #ffffff;
+    -webkit-text-stroke: 2px black;
+}
+
+
+#board {
+    display: grid;
+    grid-template-columns: repeat(3, 100px);
+    grid-template-rows: repeat(3, 100px);
+    gap: 5px;
+    background-color: #766B6B;
+}
+
+.cell {
+    width: 100px;
+    height: 100px;
+    background-color: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    font-weight: bold;
+    cursor: pointer;
+    border: 1px solid #cccccc;
+}
+
+.cell:hover {
+    background-color: #e0e0e0;
+}
+#buttons {
+    display: flex; /* Flexbox zajistí, že všechny tlačítka budou v řadě */
+    align-items: center; /* Zarovná je vertikálně na střed */
+    justify-content: flex-start; /* Zarovná je na levý okraj */
+    margin-top: 20px;
+}
+
+.styled {
+    margin-right: 10px; /* Mezera mezi tlačítky */
+    padding: 10px 20px; /* Větší vnitřní okraje tlačítek */
+    background-color: #766B6B; /* Barva pozadí tlačítka */
+    border: none; /* Odstraní výchozí okraj */
+    color: white; /* Barva textu */
+    font-size: 16px; /* Velikost písma */
+    cursor: pointer; /* Změní kurzor na ruku při najetí */
+    transition: background-color 0.3s ease; /* Plynulý přechod barvy pozadí */
+}
+
+.styled:hover {
+    background-color: #45a049; /* Změní barvu při najetí myší */
+}

@@ -1,0 +1,6 @@
+Tlačítko restart:
+1.Vynulovat bunky
+2.Ponechat score
+3.Prohodit poradi hracu
+
+

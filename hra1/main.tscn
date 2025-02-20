@@ -1,0 +1,74 @@
+[gd_scene load_steps=6 format=3 uid="uid://dlursknu0nw3s"]
+
+[ext_resource type="PackedScene" uid="uid://fihgbxvixogi" path="res://level_1.tscn" id="1_fljqb"]
+[ext_resource type="PackedScene" uid="uid://d1p8rpx6qcym6" path="res://hráč.tscn" id="2_3o4xa"]
+[ext_resource type="PackedScene" uid="uid://de45er0dgynss" path="res://killzone.tscn" id="3_ihh27"]
+[ext_resource type="Script" path="res://killzone.gd" id="4_uwt44"]
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_dmm4x"]
+distance = 60.0
+
+[node name="Main" type="Node2D"]
+
+[node name="Killzone3" parent="." instance=ExtResource("3_ihh27")]
+position = Vector2(2218, -79)
+scale = Vector2(10, 1)
+script = ExtResource("4_uwt44")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Killzone3"]
+position = Vector2(-15, 17)
+shape = SubResource("WorldBoundaryShape2D_dmm4x")
+
+[node name="Timer" type="Timer" parent="Killzone3"]
+wait_time = 0.663
+one_shot = true
+
+[node name="Level1" parent="." instance=ExtResource("1_fljqb")]
+
+[node name="Killzone2" parent="." instance=ExtResource("3_ihh27")]
+position = Vector2(2509, -95)
+script = ExtResource("4_uwt44")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Killzone2"]
+position = Vector2(-15, 17)
+shape = SubResource("WorldBoundaryShape2D_dmm4x")
+
+[node name="Timer" type="Timer" parent="Killzone2"]
+wait_time = 0.663
+one_shot = true
+
+[node name="Killzone" parent="." instance=ExtResource("3_ihh27")]
+position = Vector2(1619, -95)
+script = ExtResource("4_uwt44")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Killzone"]
+position = Vector2(-15, 17)
+shape = SubResource("WorldBoundaryShape2D_dmm4x")
+
+[node name="Timer" type="Timer" parent="Killzone"]
+wait_time = 0.663
+one_shot = true
+
+[node name="Killzone4" parent="." instance=ExtResource("3_ihh27")]
+position = Vector2(2779, -109)
+script = ExtResource("4_uwt44")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Killzone4"]
+position = Vector2(-15, 17)
+shape = SubResource("WorldBoundaryShape2D_dmm4x")
+
+[node name="Timer" type="Timer" parent="Killzone4"]
+wait_time = 0.663
+one_shot = true
+
+[node name="Hráč" parent="." instance=ExtResource("2_3o4xa")]
+position = Vector2(630, -171)
+
+[connection signal="body_entered" from="Killzone3" to="Killzone3" method="_on_body_entered"]
+[connection signal="timeout" from="Killzone3/Timer" to="Killzone3" method="_on_timer_timeout"]
+[connection signal="body_entered" from="Killzone2" to="Killzone2" method="_on_body_entered"]
+[connection signal="timeout" from="Killzone2/Timer" to="Killzone2" method="_on_timer_timeout"]
+[connection signal="body_entered" from="Killzone" to="Killzone" method="_on_body_entered"]
+[connection signal="timeout" from="Killzone/Timer" to="Killzone" method="_on_timer_timeout"]
+[connection signal="body_entered" from="Killzone4" to="Killzone4" method="_on_body_entered"]
+[connection signal="timeout" from="Killzone4/Timer" to="Killzone4" method="_on_timer_timeout"]
