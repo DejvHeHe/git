@@ -1,0 +1,20 @@
+Vize:
+	Chtěl bych vytvořit aplikaci s nakupními seznamy,v aplikaci pujde vytvořit seznamy pro jednotlivé obchody.Uživatel pak muže do seznamu přidat položku.
+	Dané položky pak pujde odšktnout jako nakoupeny.
+	
+
+Entity:
+	Nakupní seznamy
+	Položky
+
+Funkčnosti:
+	Vytvoření seznamu
+	Přidání položky do seznamu
+	Zobrazení seznamu
+	Odšrtnutí položky
+
+
+Pro ukol je potřeba udělat diagram pomocí komponenty umldraw.
+Obrázek by měl zastupovat text.
+Musíme udělat happy day scenář.Musím udělat alternativní chybový scenář
+
