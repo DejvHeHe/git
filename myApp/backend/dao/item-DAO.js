@@ -1,7 +1,6 @@
 
-
 const { MongoClient, ServerApiVersion } = require('mongodb');
-const uri = "mongodb+srv://Dejv:fnY9a4RsBfE.Mbe@shoplist.zhfar8m.mongodb.net/?appName=ShopList";
+const uri = "mongodb+srv://atlas-sample-dataset-load-67f3b567a5f73d5e435d4dd9:<db_password>@shoplist.zhfar8m.mongodb.net/?appName=ShopList";
 
 // Create a MongoClient with a MongoClientOptions object to set the Stable API version
 const client = new MongoClient(uri, {
@@ -25,18 +24,3 @@ async function run() {
   }
 }
 run().catch(console.dir);
-function get(ID)
-{
-    db.shopList.find({ _id: ObjectId(ID) })
-}
-async function create(list)
-{
-    db.shopList.insertOne({ jmeno:list.name })
-
-}
-
-module.exports = {
-    get,
-    create
-}
-    
