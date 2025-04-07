@@ -12,27 +12,21 @@ const client = new MongoClient(uri, {
   }
 });
 
-async function run() {
-  try {
-    // Connect the client to the server	(optional starting in v4.7)
-    await client.connect();
-    // Send a ping to confirm a successful connection
-    await client.db("admin").command({ ping: 1 });
-    console.log("Pinged your deployment. You successfully connected to MongoDB!");
-  } finally {
-    // Ensures that the client will close when you finish/error
-    await client.close();
-  }
-}
-run().catch(console.dir);
+
 function get(ID)
-{
-    db.shopList.find({ _id: ObjectId(ID) })
+{O
+  client.db.shopList.find({ _id: bjectId(ID) })
 }
 async function create(list)
 {
-    db.shopList.insertOne({ jmeno:list.name })
-
+    try {
+      const result= client.db("ShopList").collection("shopList").insertOne(list)
+      console.log("Inserted document ID:", result.insertedId);
+    } catch (err) {
+        console.error("Error inserting document:", err);
+    } finally {
+        await client.close(); // Always close the connection
+    }
 }
 
 module.exports = {

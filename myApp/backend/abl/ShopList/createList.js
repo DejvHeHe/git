@@ -43,6 +43,5 @@ async function CreateList(req, res) {
     }
   }
   
-  //module.export=CreateList;
-  module.exports = {
-    CreateList};
+  module.exports=CreateList;
+  
