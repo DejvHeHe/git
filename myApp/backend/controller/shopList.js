@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 
 //const GetAbl = require("../abl/category/getAbl");
-const CreateList = require("../abl/ShopList/createList.js");
+const CreateList = require("../abl/ShopList/createList");
 
 
 //router.get("/get", GetAbl);

@@ -1,7 +1,7 @@
 const Ajv = require("ajv");
 const ajv = new Ajv();
 
-const listDao = require("../../dao/shopList-DAO.js");
+const listDao = require("../../dao/shopList-DAO");
 
 const schema = {
   type: "object",
@@ -43,4 +43,6 @@ async function CreateList(req, res) {
     }
   }
   
-  module.exports = CreateList;
+  //module.export=CreateList;
+  module.exports = {
+    CreateList};

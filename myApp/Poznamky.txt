@@ -1,3 +1,0 @@
-Musim udělat createList 
-pak dao vrstvu 
-a napojit na mongodb
