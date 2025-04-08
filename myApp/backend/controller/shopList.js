@@ -1,11 +1,11 @@
 const express = require("express");
 const router = express.Router();
 
-//const GetAbl = require("../abl/category/getAbl");
+const DisplayShopList = require("../abl/ShopList/displayList");
 const CreateList = require("../abl/ShopList/createList");
 
 
-//router.get("/get", GetAbl);
+router.get("/display", DisplayShopList);
 router.post("/create", CreateList);
 
 

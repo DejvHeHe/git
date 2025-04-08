@@ -11,37 +11,39 @@ const schema = {
   required: ["name"],
   additionalProperties: false,
 };
+
 async function CreateList(req, res) {
-    try {
-      let list = req.body;
-  
-      // validate input
-      const valid = ajv.validate(schema, list);
-      if (!valid) {
-        res.status(400).json({
-          code: "dtoInIsNotValid",
-          list: "dtoIn is not valid",
-          validationError: ajv.errors,
-        });
-        return;
-      }
-  
-      // store list to a persistant storage
-      try {
-        list = listDao.create(list);
-      } catch (e) {
-        res.status(400).json({
-          ...e,
-        });
-        return;
-      }
-  
-      // return properly filled dtoOut
-      res.json(list);
-    } catch (e) {
-      res.status(500).json({ list: e.list });
+  try {
+    let list = req.body;
+
+    // validate input
+    const valid = ajv.validate(schema, list);
+    if (!valid) {
+      return res.status(400).json({
+        code: "dtoInIsNotValid",
+        category: "dtoIn is not valid",
+        validationError: ajv.errors,
+      });
     }
+
+    const ShopList = await listDao.display();
+
+    // check for duplicate by name
+    const isDuplicate = ShopList.some((element) => element.name === list.name);
+    if (isDuplicate) {
+      return res.status(400).json({
+        code: "duplicateEntry",
+        message: `Záznam s názvem '${list.name}' už existuje.`,
+      });
+    }
+
+    // create new list
+    const createdList = await listDao.create(list);
+
+    res.json(createdList);
+  } catch (e) {
+    res.status(500).json({ error: e.message || "Nastala chyba." });
   }
-  
-  module.exports=CreateList;
-  
+}
+
+module.exports = CreateList;

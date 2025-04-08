@@ -13,24 +13,29 @@ const client = new MongoClient(uri, {
 });
 
 
-function get(ID)
-{O
-  client.db.shopList.find({ _id: bjectId(ID) })
+async function display() {
+  try {
+    const resultDisplay = await client.db("ShopList").collection("shopList").find().toArray(); // převod na pole    
+    return resultDisplay; // můžeš i vrátit, pokud chceš s daty dál pracovat
+    
+  } catch (err) {
+    console.error("Chyba při zobrazování shopList:", err);
+  }
 }
+
+
 async function create(list)
 {
-    try {
-      const result= client.db("ShopList").collection("shopList").insertOne(list)
-      console.log("Inserted document ID:", result.insertedId);
-    } catch (err) {
-        console.error("Error inserting document:", err);
-    } finally {
-        await client.close(); // Always close the connection
-    }
+  try {
+    const resultCreate= await client.db("ShopList").collection("shopList").insertOne(list)
+    console.log("Inserted document ID:", resultCreate.insertedId);
+  } catch (err) {
+    console.error("Error inserting document:", err);
+  } 
 }
 
 module.exports = {
-    get,
+    display,
     create
 }
     
