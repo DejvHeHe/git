@@ -1,11 +1,8 @@
 
 require('dotenv').config(); // načte proměnné z .env
 const { MongoClient, ServerApiVersion } = require('mongodb');
-<<<<<<< Updated upstream
-const uri = "";
-=======
 const uri = process.env.MONGO_URI;
->>>>>>> Stashed changes
+
 
 // Create a MongoClient with a MongoClientOptions object to set the Stable API version
 const client = new MongoClient(uri, {
