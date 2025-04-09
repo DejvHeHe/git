@@ -1,6 +1,6 @@
 
 const { MongoClient, ServerApiVersion } = require('mongodb');
-const uri = "mongodb+srv://atlas-sample-dataset-load-67f3b567a5f73d5e435d4dd9:<db_password>@shoplist.zhfar8m.mongodb.net/?appName=ShopList";
+const uri = "mongodb+srv://Dejv:fnY9a4RsBfE.Mbe@shoplist.zhfar8m.mongodb.net/?appName=ShopList";
 
 // Create a MongoClient with a MongoClientOptions object to set the Stable API version
 const client = new MongoClient(uri, {
@@ -11,16 +11,17 @@ const client = new MongoClient(uri, {
   }
 });
 
-async function run() {
+async function add(item)
+{
+   
   try {
-    // Connect the client to the server	(optional starting in v4.7)
-    await client.connect();
-    // Send a ping to confirm a successful connection
-    await client.db("admin").command({ ping: 1 });
-    console.log("Pinged your deployment. You successfully connected to MongoDB!");
-  } finally {
-    // Ensures that the client will close when you finish/error
-    await client.close();
-  }
+    const resultItem= await client.db("ShopList").collection("items").insertOne(item)
+    
+    console.log("Inserted document ID:", resultItem.insertedId);
+  } catch (err) {
+    console.error("Error inserting document:", err);
+  } 
 }
-run().catch(console.dir);
+module.exports={
+  add
+}
