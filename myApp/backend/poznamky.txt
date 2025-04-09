@@ -1,0 +1,1 @@
+Udělat display item co bude vracet itemy

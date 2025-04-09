@@ -2,6 +2,7 @@
 require('dotenv').config(); // načte proměnné z .env
 const { MongoClient, ServerApiVersion } = require('mongodb');
 const uri = process.env.MONGO_URI;
+const { ObjectId } = require('mongodb'); 
 
 
 // Create a MongoClient with a MongoClientOptions object to set the Stable API version
@@ -28,8 +29,11 @@ async function display() {
 async function create(list)
 {
   try {
+    _id=new ObjectId()
+    list._id=_id
     const resultCreate= await client.db("ShopList").collection("shopList").insertOne(list)
     console.log("Inserted document ID:", resultCreate.insertedId);
+    resultCreate= await client.db("ShopList").collection("DashBoard").insertOne(list)
   } catch (err) {
     console.error("Error inserting document:", err);
   } 

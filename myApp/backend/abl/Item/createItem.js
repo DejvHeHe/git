@@ -2,22 +2,17 @@ const Ajv = require("ajv");
 const ajv = new Ajv();
 
 const itemDao = require("../../dao/item-DAO");
-const listDao = require("../../dao/shopList-DAO");
 
 
 const schema = {
   type: "object",
   properties: {
-    name: { type: "string" },
-    shopList:{type:"string"},
-    count:{type:"integer"},
-    
+    name: { type: "string" },       
   },
-  required: ["name","shopList"],
+  required: ["name"],
   additionalProperties: false,
 };
-
-async function AddItem(req, res) {
+async function CreateItem(req, res) {
   try {
     let item = req.body;
     // validate input
@@ -31,26 +26,15 @@ async function AddItem(req, res) {
     }   
 
     
-    item.state=true;
+    
     // create new item
-    
-    const ShopList = await listDao.display();
-    
-    if(ShopList._id=item.shopList)
-    {
-        ShopList.items=item;
-        
-        
-        
-    }
-    const addedItem = await itemDao.add(item);
-    
+    const createdItem = await itemDao.create(item);
 
     
 
-    res.json(addedItem);
+    res.json(createdItem);
   } catch (e) {
     res.status(500).json({ error: e.message || "Nastala chyba." });
   }
 }
-module.exports =AddItem ;
+module.exports =CreateItem ;

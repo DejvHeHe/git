@@ -4,6 +4,7 @@ const { MongoClient, ServerApiVersion } = require('mongodb');
 const uri = process.env.MONGO_URI;
 
 
+
 // Create a MongoClient with a MongoClientOptions object to set the Stable API version
 const client = new MongoClient(uri, {
   serverApi: {
@@ -13,17 +14,23 @@ const client = new MongoClient(uri, {
   }
 });
 
-async function add(item)
+async function create(item)
 {
+
    
   try {
-    const resultItem= await client.db("ShopList").collection("items").insertOne(item)
+    const resultCreateItem= await client.db("ShopList").collection("items").insertOne(item)
     
-    console.log("Inserted document ID:", resultItem.insertedId);
+    console.log("Inserted document ID:", resultCreateItem.insertedId);
   } catch (err) {
     console.error("Error inserting document:", err);
   } 
 }
+async function add(item)
+{
+  const resultAdd= await client.db("ShopList").collection("DashBoard").insertOne(item)
+}
 module.exports={
-  add
+  add,
+  create
 }
