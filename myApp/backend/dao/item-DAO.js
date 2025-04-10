@@ -14,7 +14,7 @@ const client = new MongoClient(uri, {
   }
 });
 
-async function display() {
+async function get() {
   try {
     const resultDisplayItem = await client.db("ShopList").collection("items").find().toArray(); // převod na pole    
     return resultDisplayItem; // můžeš i vrátit, pokud chceš s daty dál pracovat
@@ -26,6 +26,7 @@ async function display() {
 
 async function create(item)
 {   
+
   try {
     const resultCreateItem= await client.db("ShopList").collection("items").insertOne(item)
     
@@ -34,12 +35,12 @@ async function create(item)
     console.error("Error inserting document:", err);
   } 
 }
-async function add(item)
-{
-  const resultAdd= await client.db("ShopList").collection("DashBoard").insertOne(item)
+async function add(item) {
+  console.log(`Item '${item.name}' byl přidán do seznamu '${item.shopList}'.`);
 }
+
 module.exports={
   add,
   create,
-  display
+  get
 }

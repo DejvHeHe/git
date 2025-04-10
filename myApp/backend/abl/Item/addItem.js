@@ -32,25 +32,27 @@ async function AddItem(req, res) {
     item.state = true;
 
     // get all shop lists
-    const shopLists = await listDao.display();
-    const targetList = shopLists.find(list => list.name === item.shopList);
-
-    // check if the specific shop list exists
-    if (!targetList) {
-      return res.status(400).json({
-        code: "InvalidShopList",
-        message: `Nakupní seznam s názvem '${item.shopList}' neexistuje`,
-      });
-    }
-
-    // add item to the list's items array
-    if (!Array.isArray(targetList.items)) {
-      targetList.items = [];
-    }
-    targetList.items.push(item);
+    
+    const Item = await itemDao.get();
+    
+        // check for duplicate by name
+        const Exist = Item.some((element) => element.name === item.name);
+        if (!Exist) {
+          return res.status(400).json({
+            code: "Item does not exist",
+            message: `Záznam s názvem '${item.name}'  neexistuje.`,
+          });
+        }   
 
     // save the item (you may also need to save the updated list here)
-    const addedItem = await itemDao.add(item);
+    const shopLists = await listDao.display();
+    const targetList = shopLists.find(list => list.name === item.shopList);
+    if (!targetList) {
+      return res.status(404).json({ message: "Seznam nenalezen." });
+    }
+    
+    const addedItem = await listDao.update(item,targetList);
+
 
     res.json(addedItem);
   } catch (e) {
@@ -59,3 +61,6 @@ async function AddItem(req, res) {
 }
 
 module.exports = AddItem;
+
+
+
