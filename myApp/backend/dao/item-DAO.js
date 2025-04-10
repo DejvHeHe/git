@@ -14,10 +14,18 @@ const client = new MongoClient(uri, {
   }
 });
 
-async function create(item)
-{
+async function display() {
+  try {
+    const resultDisplayItem = await client.db("ShopList").collection("items").find().toArray(); // převod na pole    
+    return resultDisplayItem; // můžeš i vrátit, pokud chceš s daty dál pracovat
+    
+  } catch (err) {
+    console.error("Chyba při zobrazování shopList:", err);
+  }
+}
 
-   
+async function create(item)
+{   
   try {
     const resultCreateItem= await client.db("ShopList").collection("items").insertOne(item)
     
@@ -32,5 +40,6 @@ async function add(item)
 }
 module.exports={
   add,
-  create
+  create,
+  display
 }

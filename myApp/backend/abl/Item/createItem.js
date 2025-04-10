@@ -25,7 +25,16 @@ async function CreateItem(req, res) {
       });
     }   
 
-    
+    const Item = await itemDao.display();
+
+    // check for duplicate by name
+    const isDuplicate = Item.some((element) => element.name === item.name);
+    if (isDuplicate) {
+      return res.status(400).json({
+        code: "duplicateEntry",
+        message: `Záznam s názvem '${item.name}' už existuje.`,
+      });
+    }   
     
     // create new item
     const createdItem = await itemDao.create(item);

@@ -25,7 +25,7 @@ async function CreateList(req, res) {
         validationError: ajv.errors,
       });
     }
-
+    
     const ShopList = await listDao.display();
 
     // check for duplicate by name

@@ -1,1 +1,1 @@
-Udělat display item co bude vracet itemy
+Udělat update nakupního seznamu a přidat kontrolu zda nátezev itemu existuje

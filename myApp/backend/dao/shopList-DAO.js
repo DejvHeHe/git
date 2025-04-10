@@ -17,7 +17,7 @@ const client = new MongoClient(uri, {
 
 async function display() {
   try {
-    const resultDisplay = await client.db("ShopList").collection("shopList").find().toArray(); // převod na pole    
+    const resultDisplay = await client.db("ShopList").collection("DashBoard").find().toArray(); // převod na pole    
     return resultDisplay; // můžeš i vrátit, pokud chceš s daty dál pracovat
     
   } catch (err) {
