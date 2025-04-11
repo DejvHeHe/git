@@ -36,21 +36,32 @@ async function AddItem(req, res) {
     const Item = await itemDao.get();
     
         // check for duplicate by name
-        const Exist = Item.some((element) => element.name === item.name);
-        if (!Exist) {
-          return res.status(400).json({
+    const Exist = Item.some((element) => element.name === item.name);
+      if (!Exist) {
+        return res.status(400).json({
             code: "Item does not exist",
             message: `Záznam s názvem '${item.name}'  neexistuje.`,
           });
         }   
 
-    // save the item (you may also need to save the updated list here)
+    
     const shopLists = await listDao.display();
     const targetList = shopLists.find(list => list.name === item.shopList);
     if (!targetList) {
       return res.status(404).json({ message: "Seznam nenalezen." });
     }
     
+    const dupliciteItem = targetList.items.some(i => i.name === item.name);
+
+    if(dupliciteItem)
+      {
+        return res.status(400).json({
+          code: "Item is already added",
+          message: `Záznam s názvem '${item.name}'  je již v seznamu přidán`,
+        });
+
+      } 
+
     const addedItem = await listDao.update(item,targetList);
 
 

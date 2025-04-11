@@ -26,15 +26,43 @@ async function display() {
 }
 async function update(item, targetList) {
   try {
-    const filter = { name: targetList.name }; // nebo přímo: { name: item.shopList }
-    const update = { $push: { items: item } };
+    // Zkontroluj, zda položka existuje
+    const existingItem = targetList.items.find(i => i.name === item.name);
 
-    const resultUpdate = await client.db("ShopList").collection("shopList").updateOne(filter, update);
-    return resultUpdate;
+    if (existingItem) {
+      // Pokud položka existuje, změň její state
+      const filter = { name: targetList.name };
+      const update = {
+        $set: {
+          "items.$[elem].state": false,  // Změníme state u položky
+        }
+      };
+      const options = {
+        arrayFilters: [{ "elem.name": item.name }]  // Filtrujeme položku podle jejího jména
+      };
+
+      // Provádíme update na seznamu
+      const result = await client.db("ShopList").collection("shopList").updateOne(filter, update, options);
+      return result;
+    } else {
+      // Pokud položka neexistuje, přidáme ji do seznamu
+      const filter = { name: targetList.name };
+      const update = {
+        $push: { items: item },  // Přidáme novou položku do seznamu
+      };
+
+      // Provádíme update seznamu
+      const result = await client.db("ShopList").collection("shopList").updateOne(filter, update);
+      return result;
+    }
   } catch (err) {
     console.error(err);
+    throw new Error("Chyba při aktualizaci seznamu");
   }
 }
+
+
+
 
 
 

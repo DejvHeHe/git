@@ -38,9 +38,16 @@ async function create(item)
 async function add(item) {
   console.log(`Item '${item.name}' byl přidán do seznamu '${item.shopList}'.`);
 }
+async function uncheck()
+{
+  
+}
+
 
 module.exports={
   add,
   create,
-  get
+  get,
+  uncheck
+  
 }
