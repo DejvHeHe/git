@@ -26,40 +26,55 @@ async function display() {
 }
 async function update(item, targetList) {
   try {
-    // Zkontroluj, zda položka existuje
+    const db = client.db("ShopList");
+    const collection = db.collection("shopList");
+
+    // Check if item already exists
     const existingItem = targetList.items.find(i => i.name === item.name);
 
     if (existingItem) {
-      // Pokud položka existuje, změň její state
+      // Update the item's state
       const filter = { name: targetList.name };
       const update = {
         $set: {
-          "items.$[elem].state": false,  // Změníme state u položky
+          "items.$[elem].state": false,
         }
       };
       const options = {
-        arrayFilters: [{ "elem.name": item.name }]  // Filtrujeme položku podle jejího jména
+        arrayFilters: [{ "elem.name": item.name }]
       };
 
-      // Provádíme update na seznamu
-      const result = await client.db("ShopList").collection("shopList").updateOne(filter, update, options);
-      return result;
+      await collection.updateOne(filter, update, options);
     } else {
-      // Pokud položka neexistuje, přidáme ji do seznamu
+      // Add new item to the list
       const filter = { name: targetList.name };
       const update = {
-        $push: { items: item },  // Přidáme novou položku do seznamu
+        $push: { items: item },
       };
 
-      // Provádíme update seznamu
-      const result = await client.db("ShopList").collection("shopList").updateOne(filter, update);
-      return result;
+      await collection.updateOne(filter, update);
     }
+
+    // Now sort the items: true items first, false items last
+    const updatedList = await collection.findOne({ name: targetList.name });
+    const sortedItems = [...updatedList.items].sort((a, b) => {
+      return (b.state === true) - (a.state === true);
+    });
+
+    // Update the sorted array
+    await collection.updateOne(
+      { name: targetList.name },
+      { $set: { items: sortedItems } }
+    );
+
+    return { success: true };
   } catch (err) {
     console.error(err);
     throw new Error("Chyba při aktualizaci seznamu");
   }
 }
+
+
 
 
 
