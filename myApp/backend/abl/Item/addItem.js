@@ -39,7 +39,7 @@ async function AddItem(req, res) {
     const Exist = Item.some((element) => element.name === item.name);
       if (!Exist) {
         return res.status(400).json({
-            code: "Item does not exist",
+            code: "ItemDoesNotExist",
             message: `Záznam s názvem '${item.name}'  neexistuje.`,
           });
         }   
@@ -48,7 +48,10 @@ async function AddItem(req, res) {
     const shopLists = await listDao.display();
     const targetList = shopLists.find(list => list.name === item.shopList);
     if (!targetList) {
-      return res.status(404).json({ message: "Seznam nenalezen." });
+      return res.status(404).json({ 
+        message: "Seznam nenalezen.",
+        code:"shopListNotFound"
+      });
     }
     
     const dupliciteItem = targetList.items.some(i => i.name === item.name);
@@ -56,7 +59,7 @@ async function AddItem(req, res) {
     if(dupliciteItem)
       {
         return res.status(400).json({
-          code: "Item is already added",
+          code: "ItemISAlreadyAdded",
           message: `Záznam s názvem '${item.name}'  je již v seznamu přidán`,
         });
 

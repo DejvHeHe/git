@@ -31,6 +31,7 @@ async function create(item)
     const resultCreateItem= await client.db("ShopList").collection("items").insertOne(item)
     
     console.log("Inserted document ID:", resultCreateItem.insertedId);
+    return resultCreateItem;
   } catch (err) {
     console.error("Error inserting document:", err);
   } 

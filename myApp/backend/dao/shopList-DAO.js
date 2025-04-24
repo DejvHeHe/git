@@ -67,7 +67,7 @@ async function update(item, targetList) {
       { $set: { items: sortedItems } }
     );
 
-    return { success: true };
+    return display()
   } catch (err) {
     console.error(err);
     throw new Error("Chyba při aktualizaci seznamu");
@@ -87,6 +87,7 @@ async function create(list)
     
     const resultCreate= await client.db("ShopList").collection("shopList").insertOne(list)
     console.log("Inserted document ID:", resultCreate.insertedId);
+    return display()
     
   } catch (err) {
     console.error("Error inserting document:", err);
