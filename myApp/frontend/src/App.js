@@ -1,4 +1,5 @@
 import './App.css';
+import ShopDropdown from './components/dropdown';
 
 function App() {
   return (
@@ -6,6 +7,9 @@ function App() {
       <header className="App-header">
         <h1>ShopList app</h1>
       </header>
+      <div className="container">
+        <ShopDropdown />
+      </div>
     </div>
   );
 }
