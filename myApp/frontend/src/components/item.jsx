@@ -1,13 +1,15 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import '../App.css';
 function Item({name,count,state})
 {
     return(
         <div className="dropdown-item">
-            <input type="checkbox" value={state}/>
-            {name} | Pocet: {count}
-            
-        </div>
+        <label>
+          <input type="checkbox" value={state} className="custom-checkbox" />
+          {name} | Počet: {count}
+        </label>
+      </div>
+      
     )
 }
 export default Item;

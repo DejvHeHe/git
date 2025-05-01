@@ -8,9 +8,11 @@ function ShopDropdown({ name, items }) {
 
   return (
     <div className="dropdown-container">
-      <button onClick={handleToggle}>
-        {name} {isOpen ? '▼' : '►'}
-      </button>
+      <button onClick={handleToggle} className="dropdown-toggle">
+  <span>{name}</span>
+  <span className="arrow">{isOpen ? '▼' : '►'}</span>
+</button>
+
 
       {isOpen && (
         <div>

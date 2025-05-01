@@ -11,4 +11,16 @@ export async function fetchShopList() {
       throw error;
     }
   }
+function createList()
+{
+  try{
+    
+
+  }
+  catch(error)
+  {
+    console.log("Chyba:",error)
+    throw error
+  }
+}  
   
