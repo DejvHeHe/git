@@ -142,6 +142,15 @@ label {
   border: #2c2f36;
 
 }
+/* Add this to your CSS */
+.crossed-out {
+  text-decoration: line-through;
+}
+
+.normal-text {
+  text-decoration: none;
+}
+
 
 
 

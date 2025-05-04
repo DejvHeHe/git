@@ -17,7 +17,7 @@ function ShopDropdown({ name, items }) {
       {isOpen && (
         <div>
           {items.map((item, index) => (
-            <ItemComponent key={index} name={item.name} count={item.count} state={item.state}/>
+            <ItemComponent key={index} name={item.name} count={item.count} state={item.state} shopList={item.shopList}/>
           ))}
         </div>
       )}
