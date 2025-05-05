@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import '../App.css';
 
+import { uncheck } from '../api';
+
 function Item({ name, count, state, shopList, loadData}) {
   const [isChecked, setChecked] = useState(state); // whether it's marked
   const [isDisabled, setDisabled] = useState(!state); // disabled if already done
@@ -14,14 +16,7 @@ function Item({ name, count, state, shopList, loadData}) {
     try {
       // Optimistically disable immediately
       
-
-      await fetch('http://localhost:5000/item/uncheck', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ name, shopList }),
-      });
+      await uncheck({name,shopList})    
       
 
       // Re-fetch data from server

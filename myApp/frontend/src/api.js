@@ -1,26 +1,47 @@
-// api.js
+// api.js (clean ESModule version)
 export async function fetchShopList() {
-    try {
-      const response = await fetch("http://localhost:5000/shopList/display");
-      if (!response.ok) throw new Error("Chyba při načítání dat");
-      const data = await response.json();
-      console.log(data)
-      return data.itemList;
-    } catch (error) {
-      console.error("Chyba:", error);
-      throw error;
-    }
+  try {
+    const response = await fetch("http://localhost:5000/shopList/display");
+    if (!response.ok) throw new Error("Chyba při načítání dat");
+    const data = await response.json();
+    console.log(data);
+    return data.itemList;
+  } catch (error) {
+    console.error("Chyba:", error);
+    throw error;
   }
-function createList()
-{
-  try{
-    
+}
 
+export async function uncheck({ name, shopList }) {
+  try {
+    await fetch("http://localhost:5000/item/uncheck", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ name, shopList }),
+    });
+  } catch (error) {
+    console.error("Error unchecking item:", error);
+    throw error;
   }
-  catch(error)
-  {
-    console.log("Chyba:",error)
-    throw error
+}
+
+export async function createList(data) {
+  try {
+    const response = await fetch("http://localhost:5000/shopList/create", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    });
+
+    if (!response.ok) {
+      throw new Error("Failed to create list");
+    }
+  } catch (error) {
+    console.error("Error creating list:", error);
+    throw error;
   }
-}  
-  
+}

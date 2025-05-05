@@ -1,28 +1,48 @@
 import './App.css';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import ShopDashboard from './components/dashboard';
 import CreateForm from './components/createform';
-//import 'bootstrap/dist/css/bootstrap.min.css';
-
-
+import { fetchShopList } from './api';
 
 function App() {
-  const [showModal, setShowModal] = useState(false); // State to control modal visibility
+  const [showForm, setShowForm] = useState(false);
+  const [data, setData] = useState([]);
 
   const createList = () => {
-    setShowModal(true); // Set showModal to true to display the modal
+    setShowForm(true); // show the form
   };
+
+  async function loadData() {
+    try {
+      const shopData = await fetchShopList();
+      setData(shopData);
+    } catch (error) {
+      console.error('Chyba při načítání dat:', error);
+    }
+  }
+
+  // Load data when the component mounts
+  useEffect(() => {
+    loadData(); // Calls the loadData function on mount
+  }, []); // Empty dependency array ensures it only runs once
 
   return (
     <div className="App">
       <header className="App-header">
         <h1>ShopList app</h1>
-        <button className='primaryButton' onClick={createList}>Vytvořit nakupní seznam</button>
+        <button onClick={createList}>Vytvořit nakupní seznam</button>
       </header>
-      <ShopDashboard />
 
-      {/* Conditionally render CreateForm when showModal is true */}
-      {showModal && <CreateForm text="Zadejte název nakupního seznamu:" />}
+      {showForm && (
+        <CreateForm
+          text="Zadejte název nakupního seznamu:"
+          onClose={() => setShowForm(false)}
+          loadData={loadData}  // Passing loadData to CreateForm
+        />
+      )}
+
+      {/* Pass data to ShopDashboard */}
+      <ShopDashboard data={data} loadData={loadData} />
     </div>
   );
 }
