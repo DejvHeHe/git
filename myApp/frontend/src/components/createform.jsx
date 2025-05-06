@@ -1,9 +1,9 @@
 import '../App.css';
 import React, { useState} from 'react';
-import { createList } from '../api';
 
 
-function CreateForm({ text, onClose,loadData}) {
+
+function CreateForm({ text, onClose,loadData,createFunction}) {
   const [inputValue, setInput]=useState("")
   
   
@@ -12,16 +12,22 @@ function CreateForm({ text, onClose,loadData}) {
     event.preventDefault();
     if (!inputValue.trim()) return; // Don't submit empty input
     const data = { name: inputValue };
-    console.log("Sending data:", data); // Check data format
+    
+    console.log("Sending data:", data); // Log data to check format
+  
     try {
-      await createList(data); // Adjust this based on your API expectations
-      loadData()
-      onClose()
-      
+      if (createFunction) {  // Check if the function is set
+        await createFunction(data); // Use the function passed via props
+        loadData();
+        onClose();
+      } else {
+        console.error("No function passed to createFunction!");
+      }
     } catch (error) {
       console.error("Error submitting data:", error);
     }
   };
+  
   
   return (
     <div className='modalwindow'>
