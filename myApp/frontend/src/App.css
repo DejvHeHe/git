@@ -81,8 +81,9 @@ button {
   color: white;          /* White text color */
   margin-bottom: 10px;   /* Add space below the button */
   transition: background-color 0.3s ease; /* Smooth transition for hover effect */
-  width: 100%;
+  width: 10%;
   text-align: left;
+  height: 70px;
 }
 .custom-checkbox {
   width: 30px;

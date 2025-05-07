@@ -58,7 +58,7 @@ function App() {
       )}
 
       {/* Pass data to ShopDashboard */}
-      <ShopDashboard data={data} loadData={loadData} />
+      <ShopDashboard data={data} loadData={loadData}/>
     </div>
   );
 }

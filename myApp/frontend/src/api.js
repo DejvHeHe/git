@@ -11,6 +11,20 @@ export async function fetchShopList() {
     throw error;
   }
 }
+export async function fetchItem()
+{
+  try {
+    const response = await fetch("http://localhost:5000/item/get");
+    if (!response.ok) throw new Error("Chyba při načítání dat");
+    const data = await response.json();
+    console.log(data);
+    return data.itemList;
+  } catch (error) {
+    console.error("Chyba:", error);
+    throw error;
+  }
+}
+
 
 export async function uncheck({ name, shopList }) {
   try {
@@ -49,6 +63,25 @@ export async function createList(data) {
 export async function createItem(data) {
   try {
     const response = await fetch("http://localhost:5000/item/create", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    });
+
+    if (!response.ok) {
+      throw new Error("Failed to create list");
+    }
+  } catch (error) {
+    console.error("Error creating list:", error);
+    throw error;
+  }
+}
+
+export async function addItem(data) {
+  try {
+    const response = await fetch("http://localhost:5000/item/add", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
