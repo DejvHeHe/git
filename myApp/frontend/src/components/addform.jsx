@@ -4,25 +4,28 @@ import { addItem } from "../api";
 
 function AddForm({ loadData, onClose, shopList }) {
   const [itemName, setName] = useState("");
-  const [count, setCount] = useState(0);
+  const [count, setCount] = useState(1);
   const [items, setItems] = useState([]);
-  /*
-  try
+  
+  function handleSubmit()
   {
-      let data={
-          
-          shopList:{shopList}
-         
-      }
-          
+    try
+    {
+      const data={
+        name:itemName,
+        shopList:shopList,
+        count:count
 
+      };
+      addItem(data);
+      loadData();
+
+    }
+    catch(error)
+    {
+      console.log("Problem with sending data",error)
+    }
   }
-      
-  catch(error)
-  {
-      console.error("Error submitting data:", error);
-  }
-      */
   async function loadItems() {
     try {
       const fetchedItems = await fetchItem(); // Corrected variable name to avoid shadowing
@@ -43,7 +46,7 @@ function AddForm({ loadData, onClose, shopList }) {
 
   return (
     <div className='modalwindow'>
-      <form> 
+      <form onSubmit={handleSubmit}> 
         <p>Vyber položku co chceš přidat:</p>
         <select value={itemName} onChange={(e) => setName(e.target.value)}>
           <option value="">Vyberte položku</option> {/* Added a default "Select" option */}
