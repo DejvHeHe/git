@@ -44,8 +44,8 @@ function App() {
     <div className="App">
       <header className="App-header">
         <h1>ShopList app</h1>
-        <button onClick={handleCreateList}>Vytvořit nakupní seznam</button>
-        <button onClick={handleCreateItem}>Vytvořit nakupní položku</button>
+        <button className="createformbutton"onClick={handleCreateList}>Vytvořit nakupní seznam</button>
+        <button className="createformbutton"onClick={handleCreateItem}>Vytvořit nakupní položku</button>
       </header>
 
       {showForm && (

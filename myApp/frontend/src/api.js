@@ -52,11 +52,14 @@ export async function createList(data) {
     });
 
     if (!response.ok) {
-      throw new Error("Failed to create list");
+      const result = await response.json();
+      return { success: false, message: result?.message || "Chyba při vytváření položky." };
     }
+
+    return { success: true };
   } catch (error) {
     console.error("Error creating list:", error);
-    throw error;
+    return { success: false, message: "Nakupní seznam s tímto názvem již existuje." };
   }
 }
 
@@ -71,13 +74,17 @@ export async function createItem(data) {
     });
 
     if (!response.ok) {
-      throw new Error("Failed to create list");
+      const result = await response.json();
+      return { success: false, message: result?.message || "Chyba při vytváření položky." };
     }
+
+    return { success: true };
   } catch (error) {
     console.error("Error creating list:", error);
-    throw error;
+    return { success: false, message: "Položka s tímto názvem již existuje." };
   }
 }
+
 
 export async function addItem(data) {
   try {
@@ -90,11 +97,14 @@ export async function addItem(data) {
     });
 
     if (!response.ok) {
-      throw new Error("Failed to create list");
+      const result = await response.json();
+      return { success: false, message: result?.message || "Chyba při vytváření položky." };
     }
+
+    return { success: true };
   } catch (error) {
     console.error("Error creating list:", error);
-    throw error;
+    return { success: false, message: "Položka s tímto názvem už v seznamu je" };
   }
 }
 

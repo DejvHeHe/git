@@ -1,2 +1,2 @@
-Přidat chybové hlašky a rquired políčka
+Přidat chybové hlašky 
 Upravit vzhled

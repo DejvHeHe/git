@@ -1,4 +1,4 @@
-import '../App.css';
+import '../App.css'; 
 import React, { useState } from 'react';
 import ItemComponent from './item';
 import AddForm from './addform'; 
@@ -8,16 +8,19 @@ function ShopDropdown({ name, items, loadData, data }) {
   const handleToggle = () => setIsOpen(!isOpen);
   const [showForm, setShowForm] = useState(false);
 
-  const handleAddForm = () => {
+  const handleAddForm = (e) => {
+    e.stopPropagation(); // zabrání zavření při kliknutí na tlačítko
     setShowForm(true);
-  }
+  };
 
   return (
     <div className="dropdown-container">
       <button onClick={handleToggle} className="dropdown-toggle">
-        <span>{name}</span>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+          <button className="addbutton" onClick={handleAddForm}>Přidat položku</button>
+          <span>{name}</span>
+        </div>
         <span className="arrow">{isOpen ? '▼' : '►'}</span>
-        <button onClick={handleAddForm}>Přidat položku</button>
       </button>
 
       {isOpen && (
@@ -40,7 +43,6 @@ function ShopDropdown({ name, items, loadData, data }) {
             loadData={loadData}
             onClose={() => setShowForm(false)}
             shopList={name}
-            
           />
         </div>
       )}
