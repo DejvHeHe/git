@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import ItemComponent from './item';
 import AddForm from './addform'; 
 
-function ShopDropdown({ name, items, loadData, data }) {
+function ShopDropdown({ name, items, loadData, data,ID }) {
   const [isOpen, setIsOpen] = useState(false);
   const handleToggle = () => setIsOpen(!isOpen);
   const [showForm, setShowForm] = useState(false);
@@ -29,6 +29,7 @@ function ShopDropdown({ name, items, loadData, data }) {
             <ItemComponent
               key={index}
               name={item.name}
+              ID={item.ID}
               count={item.count}
               state={item.state}
               shopList={item.shopList}
@@ -42,7 +43,7 @@ function ShopDropdown({ name, items, loadData, data }) {
           <AddForm 
             loadData={loadData}
             onClose={() => setShowForm(false)}
-            shopList={name}
+            shopList={ID}
           />
         </div>
       )}

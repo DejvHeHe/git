@@ -13,6 +13,7 @@ function Dashboard({ loadData, data }) {
           <ShopDropdown
             key={index}
             name={shop.name || 'Neznámý'}
+            ID={shop._id}
             items={shop.items || []}
             loadData={loadData}
           />

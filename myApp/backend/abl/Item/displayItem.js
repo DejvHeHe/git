@@ -1,8 +1,8 @@
 const itemDao = require("../../dao/item-DAO");
 
-async function GetItems(req, res) {
+async function DisplayItems(req, res) {
   try {
-    const items = await itemDao.get(); 
+    const items = await itemDao.display(); 
     res.json({ itemList: items });
     
   } catch (e) {
@@ -11,4 +11,4 @@ async function GetItems(req, res) {
 }
 
 
-module.exports = GetItems;
+module.exports = DisplayItems;

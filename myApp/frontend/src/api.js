@@ -14,7 +14,7 @@ export async function fetchShopList() {
 export async function fetchItem()
 {
   try {
-    const response = await fetch("http://localhost:5000/item/get");
+    const response = await fetch("http://localhost:5000/item/display");
     if (!response.ok) throw new Error("Chyba při načítání dat");
     const data = await response.json();
     console.log(data);
@@ -26,14 +26,14 @@ export async function fetchItem()
 }
 
 
-export async function uncheck({ name, shopList }) {
+export async function uncheck(data) {
   try {
     await fetch("http://localhost:5000/item/uncheck", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ name, shopList }),
+      body: JSON.stringify(data),
     });
   } catch (error) {
     console.error("Error unchecking item:", error);

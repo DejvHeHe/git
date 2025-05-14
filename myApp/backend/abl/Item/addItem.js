@@ -7,11 +7,11 @@ const listDao = require("../../dao/shopList-DAO");
 const schema = {
   type: "object",
   properties: {
-    name: { type: "string" },
+    ID: { type: "string" },
     shopList: { type: "string" },
     count: { type: "integer" },
   },
-  required: ["name", "shopList"],
+  required: ["ID", "shopList"],
   additionalProperties: false,
 };
 
@@ -19,62 +19,53 @@ async function AddItem(req, res) {
   try {
     let item = req.body;
 
-    // validate input
+    // Validate input
     const valid = ajv.validate(schema, item);
     if (!valid) {
       return res.status(400).json({
         code: "dtoInIsNotValid",
-        category: "dtoIn is not valid",
+        message: "Input data is not valid.",
         validationError: ajv.errors,
       });
     }
 
     item.state = true;
+    const ID=item.ID
 
-    // get all shop lists
-    
-    const Item = await itemDao.get();
-    
-        // check for duplicate by name
-    const Exist = Item.some((element) => element.name === item.name);
-      if (!Exist) {
-        return res.status(400).json({
-            code: "ItemDoesNotExist",
-            message: `Záznam s názvem '${item.name}'  neexistuje.`,
-          });
-        }   
-
-    
-    const shopLists = await listDao.display();
-    const targetList = shopLists.find(list => list.name === item.shopList);
-    if (!targetList) {
-      return res.status(404).json({ 
-        message: "Seznam nenalezen.",
-        code:"shopListNotFound"
+    // Get item by ID
+    const Item = await itemDao.get(ID);
+    if (!Item) {
+      return res.status(400).json({
+        code: "ItemDoesNotExist",
+        message: `Záznam s ID '${ID}' neexistuje.`,
       });
     }
-    
-    const dupliciteItem = targetList.items.some(i => i.name === item.name);
+    const shopListID=item.shopList
+    // Get target list
+    const targetList = await listDao.get(shopListID);
+    if (!targetList) {
+      return res.status(404).json({
+        code: "shopListNotFound",
+        message: "Seznam nenalezen.",
+      });
+    }
 
-    if(dupliciteItem)
-      {
-        return res.status(400).json({
-          code: "ItemISAlreadyAdded",
-          message: `Záznam s názvem '${item.name}'  je již v seznamu přidán`,
-        });
-
-      } 
-
-    const addedItem = await listDao.update(item,targetList);
-
-
+    // Check for duplicate
+    const dupliciteItem = targetList.items.some(i => i.ID === item.ID);
+    if (dupliciteItem) {
+      return res.status(400).json({
+        code: "ItemIsAlreadyAdded",
+        message: `Záznam s ID '${item.ID}' je již v seznamu přidán.`,
+      });
+    }
+    item.name=Item.name
+    // Add item to list
+    const addedItem = await listDao.update(item, targetList);
     res.json(addedItem);
+
   } catch (e) {
     res.status(500).json({ error: e.message || "Nastala chyba." });
   }
 }
 
 module.exports = AddItem;
-
-
-
