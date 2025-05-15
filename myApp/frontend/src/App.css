@@ -296,6 +296,7 @@ label {
   z-index: 10000;
   box-sizing: border-box;
   overflow-y: auto;
+  color:black;
 }
 
 .modalwindow2 .content {

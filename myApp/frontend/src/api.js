@@ -1,4 +1,4 @@
-// api.js (clean ESModule version)
+
 export async function fetchShopList() {
   try {
     const response = await fetch("http://localhost:5000/shopList/display");
